@@ -33,6 +33,7 @@ fn main() {
     if std::env::var_os("CARGO_FEATURE_ENABLE").is_some() {
         set_feature_defines(cc::Build::new())
             .file("tracy/TracyClient.cpp")
+            .file("tracy/TracyCExtra.cpp")
             .warnings(false)
             .cpp(true)
             .flag_if_supported("-std=c++11")
