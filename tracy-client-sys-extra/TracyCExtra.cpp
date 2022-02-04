@@ -16,7 +16,7 @@ public:
 		// create LockableCtx without calling its destructor and cast it to a mirror
 		char buffer[sizeof(LockableCtx) + alignof(LockableCtx)];
 		char* aligned_buffer = buffer + alignof(LockableCtx) - reinterpret_cast<intptr_t>(buffer) % alignof(LockableCtx);
-		LockableCtx* ctx = new (aligned_buffer) LockableCtx;
+		LockableCtx* ctx = new (aligned_buffer) LockableCtx((const SourceLocationData*) srcloc);
 		return *reinterpret_cast<LockableCtxMirror*>(ctx);
 	}
 
@@ -53,7 +53,7 @@ TRACY_API void __tracy_lockable_ctx_after_unlock(uint32_t id)
 
 TRACY_API void __tracy_lockable_ctx_after_try_lock(uint32_t id, bool acquired)
 {
-	LockableCtxMirror(id).as_lockable_ctx().AfterTryLock();
+	LockableCtxMirror(id).as_lockable_ctx().AfterTryLock(acquired);
 }
 
 TRACY_API void __tracy_lockable_ctx_mark(uint32_t id, uint64_t srcloc)
