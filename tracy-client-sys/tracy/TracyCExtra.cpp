@@ -26,9 +26,9 @@ public:
 	}
 };
 
-TRACY_API uint32_t __tracy_alloc_lockable_ctx(uint64_t srcloc)
+TRACY_API uint32_t __tracy_alloc_lockable_ctx(const ___tracy_source_location_data* srcloc)
 {
-	return LockableCtxMirror::create_lockable_ctx(srcloc).m_id;
+	return LockableCtxMirror::create_lockable_ctx(reinterpret_cast<const SourceLocationData*>(srcloc)).m_id;
 }
 
 TRACY_API void __tracy_dealloc_lockable_ctx(uint32_t id)
@@ -56,9 +56,9 @@ TRACY_API void __tracy_lockable_ctx_after_try_lock(uint32_t id, bool acquired)
 	LockableCtxMirror(id).as_lockable_ctx().AfterTryLock(acquired);
 }
 
-TRACY_API void __tracy_lockable_ctx_mark(uint32_t id, const SourceLocationData* srcloc)
+TRACY_API void __tracy_lockable_ctx_mark(uint32_t id, const ___tracy_source_location_data* srcloc)
 {
-	LockableCtxMirror(id).as_lockable_ctx().Mark(srcloc);
+	LockableCtxMirror(id).as_lockable_ctx().Mark(reinterpret_cast<const SourceLocationData*>(srcloc));
 }
 
 TRACY_API void __tracy_lockable_ctx_custom_name(uint32_t id, const char* name, size_t size)
