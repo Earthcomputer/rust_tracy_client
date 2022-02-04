@@ -250,3 +250,4 @@ TRACY_API void ___tracy_emit_message_appinfo( const char* txt, size_t size );
 #endif
 
 #endif
+#include "TracyCExtra.h"

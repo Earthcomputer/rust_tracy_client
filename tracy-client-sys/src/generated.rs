@@ -311,3 +311,31 @@ extern "C" {
 extern "C" {
     pub fn ___tracy_emit_message_appinfo(txt: *const ::std::os::raw::c_char, size: usize);
 }
+extern "C" {
+    pub fn __tracy_alloc_lockable_ctx(srcloc: u64) -> u32;
+}
+extern "C" {
+    pub fn __tracy_dealloc_lockable_ctx(id: u32);
+}
+extern "C" {
+    pub fn __tracy_lockable_ctx_before_lock(id: u32) -> bool;
+}
+extern "C" {
+    pub fn __tracy_lockable_ctx_after_lock(id: u32);
+}
+extern "C" {
+    pub fn __tracy_lockable_ctx_after_unlock(id: u32);
+}
+extern "C" {
+    pub fn __tracy_lockable_ctx_after_try_lock(id: u32, acquired: bool);
+}
+extern "C" {
+    pub fn __tracy_lockable_ctx_mark(id: u32, srcloc: u64);
+}
+extern "C" {
+    pub fn __tracy_lockable_ctx_custom_name(
+        id: u32,
+        name: *const ::std::os::raw::c_char,
+        size: usize,
+    );
+}
