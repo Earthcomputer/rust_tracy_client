@@ -2,8 +2,11 @@
 #include "TracyCExtra.h"
 #include "client/TracyLock.hpp"
 
+using namespace tracy;
+
 class LockableCtxMirror
 {
+public:
 	uint32_t m_id;
 
 	LockableCtxMirror(uint32_t id) : m_id(id) {}
