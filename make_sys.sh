@@ -22,7 +22,7 @@ cp tracy-client-sys-extra/* "$DESTINATION/$(ls "$DESTINATION")"
 
 BASEDIR=("$DESTINATION"/*)
 echo "#include \"TracyCExtra.h\"" >> "$BASEDIR/TracyC.h"
-REQUIRED=($(gcc --dependencies -DTRACY_ENABLE "$BASEDIR/TracyClient.cpp" | grep -o "$BASEDIR/[^ \\]*"))
+REQUIRED=($({ gcc --dependencies -DTRACY_ENABLE "$BASEDIR/TracyClient.cpp" | grep -o "$BASEDIR/[^ \\]*" ; gcc --dependencies -DTRACY_ENABLE "$BASEDIR/TracyCExtra.cpp" | grep -o "$BASEDIR/[^ \\]*" ; }))
 
 mkdir -p "tracy-client-sys/tracy"
 
