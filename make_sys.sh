@@ -18,8 +18,10 @@ echo "::set-output name=tracy-tag::$TAG"
 mkdir -p "$DESTINATION"
 
 curl -sL "$TARBALL" -o - | tar -f - -zxC "$DESTINATION"
+cp tracy-client-sys-extra/* "$DESTINATION/$(ls "$DESTINATION")"
 
 BASEDIR=("$DESTINATION"/*)
+echo "#include \"TracyCExtra.h\"" >> "$BASEDIR/TracyC.h"
 REQUIRED=($(gcc --dependencies -DTRACY_ENABLE "$BASEDIR/TracyClient.cpp" | grep -o "$BASEDIR/[^ \\]*"))
 
 mkdir -p "tracy-client-sys/tracy"
@@ -40,6 +42,7 @@ do
   mkdir -p $(dirname "$DEST_PATH")
   cp "$REQUIRED_FILE" "$DEST_PATH"
 done
+cp "$BASEDIR/TracyCExtra.cpp" "tracy-client-sys/tracy/TracyCExtra.cpp"
 
 cp -r "$BASEDIR/libbacktrace" "tracy-client-sys/tracy/"
 cp "$BASEDIR/LICENSE" "tracy-client-sys/tracy/"
