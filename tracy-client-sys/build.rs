@@ -34,6 +34,8 @@ fn main() {
         set_feature_defines(cc::Build::new())
             .file("tracy/TracyClient.cpp")
             .file("tracy/TracyCExtra.cpp")
+            .debug(true)
+            .opt_level(0)
             .warnings(false)
             .cpp(true)
             .flag_if_supported("-std=c++11")
